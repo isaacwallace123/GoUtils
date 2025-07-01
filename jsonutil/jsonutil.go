@@ -3,9 +3,8 @@ package jsonutil
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
-	"strings"
+	"github.com/isaacwallace123/GoUtils/stringutil"
 )
 
 // ToString encodes a value into a compact JSON string.
@@ -91,16 +90,16 @@ func MustToString(v any) string {
 
 // StripComments removes // and /* */ style comments from a JSON-like string.
 func StripComments(jsonStr string) string {
-	lines := strings.Split(jsonStr, "\n")
+	lines := stringutil.Split(jsonStr, "\n")
 	var cleaned []string
 	for _, line := range lines {
-		line = strings.TrimSpace(line)
-		if strings.HasPrefix(line, "//") || line == "" {
+		line = stringutil.TrimSpace(line)
+		if stringutil.HasPrefix(line, "//") || line == "" {
 			continue
 		}
 		cleaned = append(cleaned, line)
 	}
-	return strings.Join(cleaned, "\n")
+	return stringutil.Join(cleaned, "\n")
 }
 
 // Append appends a new item to a JSON array string.

@@ -33,6 +33,7 @@ var (
 	info  = LogTag{"INFO", "\033[34m"}
 	warn  = LogTag{"WARN", "\033[33m"}
 	err   = LogTag{"ERROR", "\033[31m"}
+	fatal = LogTag{"FATAL", "\033[31m"}
 	debug = LogTag{"DEBUG", "\033[90m"}
 )
 
@@ -81,6 +82,6 @@ func Error(message string, args ...interface{}) error {
 }
 
 func Fatal(message string, args ...interface{}) {
-	log(err, message, args...)
+	log(fatal, message, args...)
 	os.Exit(1)
 }

@@ -1,9 +1,8 @@
 package env
 
 import (
+	"github.com/isaacwallace123/GoUtils/stringutil"
 	"os"
-	"strconv"
-	"strings"
 )
 
 // Get returns the environment variable or a fallback.
@@ -32,17 +31,17 @@ func Exists(key string) bool {
 
 // GetTrimmed returns a trimmed version of the env variable.
 func GetTrimmed(key, fallback string) string {
-	return strings.TrimSpace(Get(key, fallback))
+	return stringutil.TrimSpace(Get(key, fallback))
 }
 
 // GetUpper returns the env variable in upper case.
 func GetUpper(key, fallback string) string {
-	return strings.ToUpper(Get(key, fallback))
+	return stringutil.ToUpper(Get(key, fallback))
 }
 
 // GetLower returns the env variable in lower case.
 func GetLower(key, fallback string) string {
-	return strings.ToLower(Get(key, fallback))
+	return stringutil.ToLower(Get(key, fallback))
 }
 
 func GetInt(key string, fallback int) int {
@@ -50,10 +49,7 @@ func GetInt(key string, fallback int) int {
 	if val == "" {
 		return fallback
 	}
-	i, err := strconv.Atoi(val)
-	if err != nil {
-		return fallback
-	}
+	i := stringutil.ToInt(val, fallback)
 	return i
 }
 
@@ -62,10 +58,7 @@ func GetInt32(key string, fallback int32) int32 {
 	if val == "" {
 		return fallback
 	}
-	i, err := strconv.ParseInt(val, 10, 32)
-	if err != nil {
-		return fallback
-	}
+	i := stringutil.ToInt64(val, int64(fallback))
 	return int32(i)
 }
 
@@ -74,10 +67,7 @@ func GetInt64(key string, fallback int64) int64 {
 	if val == "" {
 		return fallback
 	}
-	i, err := strconv.ParseInt(val, 10, 64)
-	if err != nil {
-		return fallback
-	}
+	i := stringutil.ToInt64(val, fallback)
 	return i
 }
 
@@ -86,10 +76,7 @@ func GetUint(key string, fallback uint) uint {
 	if val == "" {
 		return fallback
 	}
-	i, err := strconv.ParseUint(val, 10, 64)
-	if err != nil {
-		return fallback
-	}
+	i := stringutil.ToUint64(val, uint64(fallback))
 	return uint(i)
 }
 
@@ -98,10 +85,7 @@ func GetUint32(key string, fallback uint32) uint32 {
 	if val == "" {
 		return fallback
 	}
-	i, err := strconv.ParseUint(val, 10, 32)
-	if err != nil {
-		return fallback
-	}
+	i := stringutil.ToUint64(val, uint64(fallback))
 	return uint32(i)
 }
 
@@ -110,10 +94,7 @@ func GetUint64(key string, fallback uint64) uint64 {
 	if val == "" {
 		return fallback
 	}
-	i, err := strconv.ParseUint(val, 10, 64)
-	if err != nil {
-		return fallback
-	}
+	i := stringutil.ToUint64(val, fallback)
 	return i
 }
 
@@ -122,10 +103,7 @@ func GetFloat32(key string, fallback float32) float32 {
 	if val == "" {
 		return fallback
 	}
-	f, err := strconv.ParseFloat(val, 32)
-	if err != nil {
-		return fallback
-	}
+	f := stringutil.ToFloat64(val, float64(fallback))
 	return float32(f)
 }
 
@@ -134,10 +112,7 @@ func GetFloat64(key string, fallback float64) float64 {
 	if val == "" {
 		return fallback
 	}
-	f, err := strconv.ParseFloat(val, 64)
-	if err != nil {
-		return fallback
-	}
+	f := stringutil.ToFloat64(val, fallback)
 	return f
 }
 
@@ -146,7 +121,7 @@ func GetBool(key string, fallback bool) bool {
 	if val == "" {
 		return fallback
 	}
-	switch strings.ToLower(val) {
+	switch stringutil.ToLower(val) {
 	case "true", "1", "yes", "on":
 		return true
 	case "false", "0", "no", "off":
